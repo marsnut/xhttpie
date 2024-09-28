@@ -23,7 +23,7 @@ function! s:get_visual_selection()
 endfunction
 
 function s:OpenResultBuf()
-    if bufwinnr(displayBufName)  == -1
+    if bufwinnr(s:displayBufName)  == -1
         execute 'below ' . g:xhttpie_viewsize . '16split ' . s:displayBufName
         nnoremap  q :q
         setlocal filetype=DisplayTrans
@@ -44,7 +44,7 @@ function s:OpenResultBuf()
         " this Vim session
         setlocal autoread
     else
-        execute bufwinnr(displayBufName) . "wincmd w"
+        execute bufwinnr(s:displayBufName) . "wincmd w"
     endif
 endfunction
 
@@ -94,6 +94,8 @@ function xhttpie#logview()
     if s:checkSetting() == 0
         return
     endif
+
+    call s:OpenResultBuf()
     
     let job = job_start('tail -f ' . g:xhttpie_log_file,
                          \ {'out_io': 'buffer', 'out_name': '_xMonitor_'})
