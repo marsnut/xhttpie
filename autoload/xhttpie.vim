@@ -74,7 +74,7 @@ function s:HandleResult(channel) abort
 endfunction
 
 function! xhttpie#run()
-    if s:checkSetting() == 0
+    if !s:checkSetting()
         return
     endif
 
@@ -91,7 +91,7 @@ function! xhttpie#run()
 endfunction
 
 function xhttpie#logview()
-    if s:checkSetting() == 0
+    if s:checkSetting()
         return
     endif
 
