@@ -91,7 +91,7 @@ function! xhttpie#run()
 endfunction
 
 function xhttpie#logview()
-    if s:checkSetting()
+    if !s:checkSetting()
         return
     endif
 
