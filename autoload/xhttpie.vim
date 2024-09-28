@@ -24,7 +24,7 @@ endfunction
 
 function s:OpenResultBuf()
     if bufwinnr(s:displayBufName)  == -1
-        execute 'below ' . g:xhttpie_viewsize . '16split ' . s:displayBufName
+        execute 'below ' . g:xhttpie_viewsize . 'split ' . s:displayBufName
         nnoremap  q :q
         setlocal filetype=DisplayTrans
         setlocal buftype=nofile
