@@ -1,5 +1,5 @@
 
-let s:displayBufName = '_xMonitor_'
+let s:displayBufName = '_xhttpie'
 
 func! s:checkSetting()
     if !exists('g:xhttpie_viewsize') || !exists('g:xhttpie_log_file')
