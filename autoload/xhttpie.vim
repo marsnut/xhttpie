@@ -1,4 +1,14 @@
 
+let s:displayBufName = '_xMonitor_'
+
+func! s:checkSetting()
+    if !exists('g:xhttpie_viewsize') || !exists('g:xhttpie_log_file')
+        echom 'viewsize or log file no setting'
+        return 0
+    endif
+    return 1
+endfunc
+
 function! s:get_visual_selection()
     let [line_start, column_start] = getpos("'<")[1:2]
     let [line_end, column_end] = getpos("'>")[1:2]
@@ -13,9 +23,8 @@ function! s:get_visual_selection()
 endfunction
 
 function s:OpenResultBuf()
-    let displayBufName = '_xMonitor_'
     if bufwinnr(displayBufName)  == -1
-        execute 'below 16split ' . displayBufName
+        execute 'below ' . g:xhttpie_viewsize . '16split ' . s:displayBufName
         nnoremap  q :q
         setlocal filetype=DisplayTrans
         setlocal buftype=nofile
@@ -37,7 +46,6 @@ function s:OpenResultBuf()
     else
         execute bufwinnr(displayBufName) . "wincmd w"
     endif
-
 endfunction
 
 function s:HandleResult(channel) abort
@@ -66,6 +74,10 @@ function s:HandleResult(channel) abort
 endfunction
 
 function! xhttpie#run()
+    if s:checkSetting() == 0
+        return
+    endif
+
     let http_cmd = s:get_visual_selection()
     call s:OpenResultBuf()
     normal! Go
@@ -77,3 +89,13 @@ function! xhttpie#run()
     let job = job_start(['sh', '-c', '! ' . http_cmd . ' --ignore-stdin &'], #{close_cb: 's:HandleResult'})
     echom job_status(job)
 endfunction
+
+function xhttpie#logview()
+    if s:checkSetting() == 0
+        return
+    endif
+    
+    let job = job_start('tail -f ' . g:xhttpie_log_file,
+                         \ {'out_io': 'buffer', 'out_name': '_xMonitor_'})
+endfunction
+
