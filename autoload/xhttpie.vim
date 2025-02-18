@@ -19,7 +19,7 @@ function! s:get_visual_selection()
     let lines[-1] = lines[-1][: column_end - 2]
     " let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
     let lines[0] = lines[0][column_start - 1:]
-    return join(lines, '\n')
+    return join(lines, "\n")
 endfunction
 
 function s:OpenResultBuf()
@@ -78,7 +78,9 @@ function! xhttpie#run()
         return
     endif
 
-    let http_cmd = s:get_visual_selection()
+    let cmd = s:get_visual_selection()
+    let http_cmd = substitute(cmd, '\n', '\t', 'g')
+
     call s:OpenResultBuf()
     normal! Go
     silent put = '// -----------------------------------------------------'
