@@ -53,7 +53,7 @@ function s:HandleResult(channel) abort
     while ch_status(a:channel, {'part': 'out'}) == 'buffered'
         let text += [ch_read(a:channel)]
     endwhile
-    let result = join(text, '\n')
+    let result = join(text, "\n")
     " let data = join(text, '')
     " let result = system('!( echo "' . data . '"|jq . )&')
     " echom result
