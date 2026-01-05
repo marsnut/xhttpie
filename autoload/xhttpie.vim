@@ -51,7 +51,7 @@ endfunction
 function s:HandleResult(channel) abort
     let text = []
     while ch_status(a:channel, {'part': 'out'}) == 'buffered'
-        let text += [ch_read(a:channel)]
+        let text += [ch_read(a:channel)] . '\n'
     endwhile
     let result = join(text, '')
     " let data = join(text, '')
