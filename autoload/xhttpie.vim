@@ -65,8 +65,8 @@ function s:HandleResult(channel) abort
     " normal! Go.variable
     
     silent put = result
-    let lineno = line('.')
-    execute lineno . '!jq'
+    " let lineno = line('.')
+    " execute lineno . '!jq'
     normal! zt
 
     " silent 1,1delete
@@ -78,7 +78,7 @@ function! xhttpie#run()
         return
     endif
 
-    let cmd = s:get_visual_selection()
+    let cmd = s:get_visual_selection() . "--pretty=format --print=b"
     let http_cmd = substitute(cmd, '\n', '\t', 'g')
 
     call s:OpenResultBuf()
