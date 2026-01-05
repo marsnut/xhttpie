@@ -79,6 +79,7 @@ function! xhttpie#run()
         return
     endif
 
+
     let cmd = s:get_visual_selection() . " --pretty=format --print=b"
     let http_cmd = substitute(cmd, '\n', '\t', 'g')
 
