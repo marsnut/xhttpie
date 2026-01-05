@@ -65,8 +65,9 @@ function s:HandleResult(channel) abort
     " normal! Go.variable
     
     silent put = result
-    " let lineno = line('.')
+    let lineno = line('.')
     " execute lineno . '!jq'
+    execute lineno
     normal! zt
 
     " silent 1,1delete
