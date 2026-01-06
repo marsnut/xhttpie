@@ -80,7 +80,7 @@ function! xhttpie#run()
         return
     endif
 
-    let cmd = s:get_visual_selection() . " --pretty=format --print=b"
+    let cmd = s:get_visual_selection()
     let http_cmd = substitute(cmd, '\n', '\t', 'g')
 
     call s:OpenResultBuf()
@@ -90,7 +90,7 @@ function! xhttpie#run()
     silent put = '// -----------------------------------------------------'
     execute winnr("#") . "wincmd w"
 
-    let job = job_start(['sh', '-c', '! ' . http_cmd . ' --ignore-stdin &'], #{close_cb: 's:HandleResult'})
+    let job = job_start(['sh', '-c', '! ' . http_cmd . ' --pretty=format --print=b --ignore-stdin &'], #{close_cb: 's:HandleResult'})
     echom job_status(job)
 endfunction
 
