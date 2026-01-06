@@ -90,7 +90,7 @@ function! xhttpie#run()
     silent put = '// -----------------------------------------------------'
     execute winnr("#") . "wincmd w"
 
-    let job = job_start(['sh', '-c', '! ' . http_cmd . ' --pretty=format --print=b --ignore-stdin &'], #{close_cb: 's:HandleResult'})
+    let job = job_start(['sh', '-c', '! ' . http_cmd . ' --pretty=format --print=b --format-options json.indent:2 --ignore-stdin &'], #{close_cb: 's:HandleResult'})
     echom job_status(job)
 endfunction
 
